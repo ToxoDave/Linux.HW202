@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 			perror("Cant write");
 			return 8;
 	        }
-		write(1, buffer, 4096);		
+		write(1, buffer, read_bytes);		
 	}
 	close(id);
 
