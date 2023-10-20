@@ -1,1 +1,1 @@
-#AnahityAsecLinuxiTnayinAramusyAsecUwU
+#Терпения вам в проверке ДЗ :)
