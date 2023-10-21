@@ -16,8 +16,7 @@ public:
 	friend ComplexNumber operator+(const ComplexNumber& c1, const ComplexNumber& c2);
 	friend ComplexNumber operator-(const ComplexNumber& c1, const ComplexNumber& c2);
 	friend ComplexNumber operator*(const ComplexNumber& c, double k);
-	double getModule(const ComplexNumber& c);
-	bool operator<(const ComplexNumber& c1, const ComplexNumber& c2);
+	double getModule() const;
 };
 
 #endif
