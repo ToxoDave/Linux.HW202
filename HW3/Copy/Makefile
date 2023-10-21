@@ -1,4 +1,4 @@
-run: 	copy
+run:	copy 
 	./copy
 
 copy:	copy.cpp

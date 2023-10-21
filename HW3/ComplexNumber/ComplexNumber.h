@@ -12,13 +12,11 @@ public:
 	ComplexNumber();
 	ComplexNumber(double real);
 	ComplexNumber(double real, double im);
-	bool operator<(const ComplexNumber& other);
 	friend std::ostream& operator<<(std::ostream& out, const ComplexNumber& c);
 	friend ComplexNumber operator+(const ComplexNumber& c1, const ComplexNumber& c2);
 	friend ComplexNumber operator-(const ComplexNumber& c1, const ComplexNumber& c2);
 	friend ComplexNumber operator*(const ComplexNumber& c, double k);
-	friend double getModule();
-
+	double getModule();
 };
 
 

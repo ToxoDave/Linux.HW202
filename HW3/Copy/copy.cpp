@@ -2,16 +2,15 @@
 #include <string>
 #include <fcntl.h>
 #include <cerrno>
-#include <vector>
 #include <unistd.h>
 
 int main(int argc, char** argv)
 {
 	std::cout << "Enter the name of the source file:" << std::endl;
-	char* source;
+	std::string source;
 	std::cin >> source;
 	std::cout << "Enter the name of the destination file:" << std::endl;
-	char* destination;
+	std::string destination;
 	std::cin >> destination;
 	std::cout << "Enter the initial offset in the source file(in bytes):" << std::endl;
 	ssize_t source_bytes;
@@ -23,8 +22,8 @@ int main(int argc, char** argv)
 	ssize_t copy_bytes;
 	std::cin >> copy_bytes;
 
-	int sf = open(source, O_RDONLY, 0666);
-	int fd = open(destination, O_WRONLY | O_RDONLY | O_TRUNC, 0666);
+	int sf = open(source.c_str(), O_RDONLY);
+	int fd = open(destination.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
 
 	if(sf == -1 || fd == -1)
 	{
@@ -42,23 +41,22 @@ int main(int argc, char** argv)
 	}
 	
 	int buff_size = 4096;
+	ssize_t bytes_read;
 	char buffer[buff_size];
-	for(ssize_t i = 0; i <= copy_bytes; )
+	while(copy_bytes > 0 && (bytes_read = read(sf, buffer, buff_size)) > 0)
 	{
-		int bytes_read = read(sf, buffer, buff_size);
-		if(bytes_read == -1)
-		{
-			perror("Cant read");
-			exit(EXIT_FAILURE);
-		}
 		int bytes_written = write(fd, buffer, bytes_read);
 		if(bytes_written == -1)
 		{
 			perror("Cant write");
 			exit(EXIT_FAILURE);
 		}
-		i += bytes_read;
+		copy_bytes -= bytes_written;
 	}
 	close(sf);
 	close(fd);
+
+
+
+	return 0;
 }
