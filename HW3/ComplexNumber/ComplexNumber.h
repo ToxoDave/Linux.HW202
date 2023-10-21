@@ -1,5 +1,5 @@
-#ifndef	ComplexNumber_h
-#define	ComplexNumber_h
+#ifndef	COMPLEXNUMBER_H
+#define	COMPLEXNUMBER_H
 
 #include <iostream>
 
@@ -16,8 +16,8 @@ public:
 	friend ComplexNumber operator+(const ComplexNumber& c1, const ComplexNumber& c2);
 	friend ComplexNumber operator-(const ComplexNumber& c1, const ComplexNumber& c2);
 	friend ComplexNumber operator*(const ComplexNumber& c, double k);
-	double getModule();
+	double getModule(const ComplexNumber& c);
+	bool operator<(const ComplexNumber& other);
 };
-
 
 #endif

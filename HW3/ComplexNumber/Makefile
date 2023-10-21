@@ -7,5 +7,5 @@ main.o:	main.cpp
 complex_number.o: ComplexNumber.cpp ComplexNumber.h
 	g++ ComplexNumber.cpp -c
 
-main:   main.o complex_number.o
+main:   main.o ComplexNumber.o
 	g++ main.o ComplexNumber.o -o main
