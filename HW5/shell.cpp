@@ -25,13 +25,13 @@ int main(int argc, char** argv)
 			tokens.push_back(token);
 			token = strtok(nullptr, " ");
 		}
+		int status;
 		pid_t fk = fork();
 		if(fk == -1)
 		{
 			perror("Cant fork");
 			exit(EXIT_FAILURE);
 		}
-		int status;
 		if(fk == 0)
 		{
 			if(execvp(tokens[0], tokens.data()) == -1)
