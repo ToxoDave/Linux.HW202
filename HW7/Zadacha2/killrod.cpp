@@ -7,7 +7,6 @@
 
 int main()
 {
-	int status;
 	pid_t fk = fork();
 	if(fk == -1)
 	{
