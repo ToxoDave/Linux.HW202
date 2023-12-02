@@ -11,9 +11,9 @@ void SignalHandler(int signum)
 	std::cout << getpid() << std::endl;
 	
 	unsigned long eip_stat, eax_stat, ebx_stat;
-	asm("movq %%rip, %0" : "=r" (eip_stat));
-   	asm("movq %%rax, %0" : "=r" (eax_stat));
-    	asm("movq %%rbx, %0" : "=r" (ebx_stat));
+	asm("movq (%%rip), %0" : "=r" (eip_stat));
+   	asm("movq (%%rax), %0" : "=r" (eax_stat));
+    	asm("movq (%%rbx), %0" : "=r" (ebx_stat));
 
     	std::cout << "EIP: " << eip_stat << std::endl;
     	std::cout << "EAX: " << eax_stat << std::endl;
@@ -36,6 +36,7 @@ int main()
 	while(true)
 	{
 		sleep(10);
+		std::cout << "sleep";
 	}
 	return 0;
 }
