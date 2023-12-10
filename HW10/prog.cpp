@@ -29,7 +29,7 @@ void* foo(void* arg)
 		res = tmp->x * tmp->x + tmp->y * tmp->y;
 	}
 	
-	int fd = open(tmp->os_res, O_WRONLY | O_RDONLY, 0666);
+	int fd = open(tmp->os_res, O_WRONLY | O_RDONLY | O_CREAT, 0666);
 	if(fd == -1)
 	{
 		perror("Cant open");
