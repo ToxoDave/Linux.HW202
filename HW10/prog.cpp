@@ -9,7 +9,7 @@ struct Thread{
 	int x;
 	int y;
 	std::string operand;
-	const char* os_res;
+	char* os_res;
 };
 
 void* foo(void* arg)
@@ -29,14 +29,14 @@ void* foo(void* arg)
 		res = tmp->x * tmp->x + tmp->y * tmp->y;
 	}
 	
-	int fd = open(tmp->os_res, O_WRONLY | O_RDONLY | O_CREAT, 0666);
+	int fd = open(const_cast<char*>(tmp->os_res), O_WRONLY | O_RDONLY | O_CREAT, 0666);
 	if(fd == -1)
 	{
 		perror("Cant open");
 		exit(errno);
 	}
 
-	std::string res_str = std::to_string(res);
+	std::string res_str = std::to_string(tmp->x) + " " + tmp->operand + " " + std::to_string(tmp->y) + " = " + std::to_string(res) + '\n';
 	ssize_t written_bytes = write(fd, res_str.c_str(), res_str.size());
 	if(written_bytes == -1)
 	{
@@ -53,20 +53,22 @@ int main()
 	std::cout << "Enter the number of operations :";
 	std::cin >> N;
 	std::cout << std::endl;
-	std::vector<pthread_t> threads;
-	std::vector<Thread> data;
-	for(int i = 1; i <= N; ++i)
+	std::vector<pthread_t> threads(N);
+	std::vector<Thread> data(N);
+	for(int i = 0; i < N; ++i)
 	{
 		std::cin >> (data[i]).x >> (data[i]).y >> (data[i]).operand;
-		std::string out = "out_" + std::to_string(i);
-		data[i].os_res = out.c_str();
+		std::string out = "out_" + std::to_string(i + 1) + ".txt";
+		char* temp = NULL;
+		temp = (char*)out.c_str();
+		data[i].os_res = temp;
 		if(pthread_create(&threads[i], nullptr, foo, (void*)&data[i]) == -1)
 		{
 			perror("Cant create thread");
 			exit(errno);
 		}
 	}
-	for(int j = 1; j <= N; ++j)
+	for(int j = 0; j < N; ++j)
 	{
 		pthread_join(threads[j], nullptr);
 	}	
