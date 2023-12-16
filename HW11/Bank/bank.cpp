@@ -75,7 +75,6 @@ int main()
 			}
 		}
 	}
-
 	for(int i = 0; i < N; ++i)
 	{
 		pthread_join(threads[i], nullptr);
@@ -83,5 +82,3 @@ int main()
 	std::cout << "Your account balance right now is : " << acc.balance << "$" << std::endl;
 	return 0;
 }
-
-
